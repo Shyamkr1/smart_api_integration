@@ -23,6 +23,8 @@ def load(_message):
     conn = db_manager.get_db_connection()
     cursor = conn.cursor()
 
+    # Check if the table exists
+    cursor.execute(f"SELECT EXISTS (SELECT FROM information_schema.tables WHERE table_name = '{table_name}')")
     # Construct the SQL query dynamically
     columns = ['exchange_timestamp', 'last_traded_price', 'last_traded_quantity',
                'average_traded_price', 'volume_trade_for_the_day', 'total_buy_quantity', 'total_sell_quantity',
